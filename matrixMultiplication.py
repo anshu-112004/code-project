@@ -1,0 +1,42 @@
+# Function to take matrix input
+def input_matrix(rows, cols, name):
+    print(f"Enter elements for {name} matrix ({rows}x{cols}):")
+    matrix = []
+    for i in range(rows):
+        row = list(map(int, input(f"Row {i+1}: ").split()))
+        while len(row) != cols:
+            print(f"Please enter exactly {cols} numbers.")
+            row = list(map(int, input(f"Row {i+1}: ").split()))
+        matrix.append(row)
+    return matrix
+
+# Function to multiply matrices
+def multiply_matrices(A, B):
+    result = [[0]*len(B[0]) for _ in range(len(A))]
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                result[i][j] += A[i][k] * B[k][j]
+    return result
+
+# Main program
+print("Matrix Multiplication")
+
+# Get dimensions from user
+r1 = int(input("Enter number of rows for Matrix A: "))
+c1 = int(input("Enter number of columns for Matrix A: "))
+r2 = int(input("Enter number of rows for Matrix B: "))
+c2 = int(input("Enter number of columns for Matrix B: "))
+
+# Check if multiplication is possible
+if c1 != r2:
+    print("Matrix multiplication not possible. Columns of A must equal rows of B.")
+else:
+    A = input_matrix(r1, c1, "A")
+    B = input_matrix(r2, c2, "B")
+
+    result = multiply_matrices(A, B)
+
+    print("\nResult of Matrix Multiplication:")
+    for row in result:
+        print(" ".join(map(str, row)))
